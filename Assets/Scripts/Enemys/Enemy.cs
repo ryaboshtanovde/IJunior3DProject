@@ -17,7 +17,7 @@ public abstract class Enemy : MonoBehaviour
     {
         Vector3 moveDirection = (_target.transform.position - transform.position).normalized;
 
-        transform.position += moveDirection * Speed * Time.deltaTime;
+        transform.Translate(moveDirection * Speed * Time.deltaTime);
     }
 
     public void SetTarget(Target target)

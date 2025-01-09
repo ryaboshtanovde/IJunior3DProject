@@ -14,9 +14,10 @@ public class Spawner : MonoBehaviour
 
     private IEnumerator SpawnEnemys()
     {
+        WaitForSeconds waitForSeconds = new WaitForSeconds(_delay);
         while (enabled)
         {
-            yield return new WaitForSeconds(_delay);
+            yield return waitForSeconds;
 
             Instantiate(_prefab, transform.position, Quaternion.identity).SetTarget(_target);
         }
