@@ -20,9 +20,7 @@ public class Target : MonoBehaviour
     private void FixedUpdate()
     {
         if (_currentPoint != null)
-        {
             transform.Translate(_moveDirection * _speed);
-        }
     }
 
     private void OnTriggerEnter(Collider collider)

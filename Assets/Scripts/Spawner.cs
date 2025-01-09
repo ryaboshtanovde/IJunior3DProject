@@ -15,6 +15,7 @@ public class Spawner : MonoBehaviour
     private IEnumerator SpawnEnemys()
     {
         WaitForSeconds waitForSeconds = new WaitForSeconds(_delay);
+
         while (enabled)
         {
             yield return waitForSeconds;
