@@ -3,7 +3,11 @@ using UnityEngine;
 public class Signalization : MonoBehaviour
 {
     [SerializeField] private AudioSource _audioSource;
-    [SerializeField] private float _radius;
+    [SerializeField] private RobberDetector _robberDetector;
+    private bool _isPlaying = false;
+    private float _maxVolume = 1.0f;
+    private float _minVolume = 0f;
+    private float _volumeChangeSpeed = 0.001f;
 
     private void Start()
     {
@@ -12,15 +16,24 @@ public class Signalization : MonoBehaviour
 
     private void FixedUpdate()
     {
-        RaycastHit[] hits = Physics.SphereCastAll(transform.position, _radius, Vector3.one);
-        {
-            foreach (RaycastHit hit in hits)
-            {
-                if (hit.transform.gameObject.TryGetComponent(out Robber script))
-                {
-                    _audioSource.volume = ((hit.transform.position - transform.position).magnitude - _radius)/(-_radius);
-                }
-            }
-        }
+        if (_isPlaying)
+            _audioSource.volume = Mathf.MoveTowards(_audioSource.volume, _maxVolume, _volumeChangeSpeed);
+        else
+            _audioSource.volume = Mathf.MoveTowards(_audioSource.volume, _minVolume, _volumeChangeSpeed);
+    }
+
+    private void ChangeState()
+    {
+        _isPlaying = !_isPlaying;
+    }
+
+    private void OnEnable()
+    {
+        _robberDetector._robberDetected += ChangeState;
+    }
+
+    private void OnDisable()
+    {
+        _robberDetector._robberDetected -= ChangeState;
     }
 }
