@@ -5,6 +5,7 @@ public class Signalization : MonoBehaviour
     [SerializeField] private AudioSource _audioSource;
     [SerializeField] private RobberDetector _robberDetector;
     private bool _isPlaying = false;
+
     private float _maxVolume = 1.0f;
     private float _minVolume = 0f;
     private float _volumeChangeSpeed = 0.001f;
